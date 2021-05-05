@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="js/User.js"></script>
+    <script src="js/Data.js"></script>
+</head>
+<style>
+    form{
+        width: 300px;
+    }
+    input,select{
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+<form id="login">
+    <fieldset>
+        <legend>Login</legend>
+        Username: <input id="user-name" type="text" placeholder="username">
+        Password: <input type="password" id="password" placeholder="password">
+        <button type="button" onclick="login()">Login</button>
+        <button type="button">Cancel</button>
+    </fieldset>
+</form>
+<form id="register">
+    <fieldset>
+        <legend>Register</legend>
+        Username: <input id="r-username" type="text" placeholder="username">
+        <br>
+        Password: <input type="password" id="r-password" placeholder="password">
+        <br>
+        Role: <select id="role">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select>
+        <br>
+        <button type="button" onclick="register()">Register</button>
+        <button type="button">Cancel</button>
+    </fieldset>
+</form>
+<script>
+    function login() {
+        let username = document.getElementById('user-name').value;
+        let password = document.getElementById('password').value;
+        /*if(username == 'admin'){
+            if(password == '123456'){
+                window.location.href = "admin.html";
+            }else {
+                alert("Sai password");
+            }
+        }else if(username == 'user'){
+            if(password == '123456'){
+                window.location.href = "home.html";
+            }else {
+                alert("Sai password");
+            }        }else {
+            alert("Tài khoản không hợp lệ");
+        }*/
+        let isLogin = false;
+        for (let i = 0; i < users.length; i++) {
+            if(users[i].isUser(username,password)){
+                isLogin = true;
+                saveData(CURRENT,users[i].name);
+                alert('Đăng nhập thành công');
+                if(users[i].isAdmin()){
+                    window.location.href = 'admin.html';
+                }else {
+                    window.location.href = 'home.html';
+                }
+
+            }
+        }
+
+    }
+
+    function register() {
+        let name = document.getElementById('r-username').value;
+        let pass = document.getElementById('r-password').value;
+        let role = document.getElementById('role').value;
+        let user = new User(name,pass,role);
+        addUser(user);
+        alert('Đăng ký thành công!')
+    }
+</script>
+</body>
+</html>
